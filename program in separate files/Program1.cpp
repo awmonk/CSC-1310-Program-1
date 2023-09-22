@@ -59,7 +59,6 @@ int main() {
                 break;
             case 6:
                 /* Remove all video games and quit. */
-                library.~videoGameLibrary();
                 quit = true;
                 break;
             default:
