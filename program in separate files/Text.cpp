@@ -11,7 +11,7 @@ Text::Text(const char *textArray) {
     this->textArray = new char[textLength + 1];
     strcpy(this->textArray, textArray);
 };
-    Text::~Text() {
+Text::~Text() {
     /* Releases the memory for the c-string pointed to by textArray and prints
        a message */
     delete[] textArray;
