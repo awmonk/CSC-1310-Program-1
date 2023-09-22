@@ -59,8 +59,7 @@ int main() {
                 break;
             case 6:
                 /* Remove all video games and quit. */
-                cout << "\nGOODBYE!\n" << endl;
-                /* Close the loop. */
+                library.~videoGameLibrary();
                 quit = true;
                 break;
             default:
@@ -69,6 +68,7 @@ int main() {
                 break;
         }
     }
+    cout << "\nGOODBYE!\n" << endl;
     return 0;
 };
 

@@ -20,6 +20,7 @@ videoGameLibrary::~videoGameLibrary() {
     cout << "VideoGameLibrary destructor: Released memory for ";
     cout << "each game in the video game array and the array itself.";
     cout << endl;
+    return;
 };
 void videoGameLibrary::addVideoGameToArray() {
     /* It should ask the user for the video game title (read in as
