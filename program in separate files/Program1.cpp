@@ -13,7 +13,8 @@ using namespace std;
 /* Function to encapsulate the menu. */
 void showMenu();
 
-int main() {
+int main()
+{
     /* Initialize an integer for the maximum number of games, a userChoice
        variable and a boolean for the switch, and an array of chars for
        the fstream to be called. */
@@ -22,56 +23,64 @@ int main() {
     char filename[100];
 
     cout << "How many video games can your library hold? ";
-    cin  >> maxGames;
+    cin >> maxGames;
 
     /* Intitialize the library object after the maxGames variable is set to
        avoid undefined behavior. */
-    videoGameLibrary library(maxGames);
+    /* It is not strictly necessary to dynamically allocate the library as the
+       array is resized automatically in each of the written functions, but this
+       is what the document called for, so, ¯\_(ツ)_/¯ */
+    videoGameLibrary *library = new videoGameLibrary(maxGames);
 
-    while(!quit) {
+    while (!quit)
+    {
         cout << endl;
         showMenu();
-        cin  >> userChoice;
-        switch(userChoice) {
-            case 1:
-                /* Load video games from a file. */
-                cout << "\nWhat is the name of the file? (example.txt): ";
-                cin.ignore();
-                cin.getline(filename, sizeof(filename));
-                cout << endl;
-                library.loadVideoGamesFromFile(filename);
-                break;
-            case 2:
-                /* Save video games from a file. */
-                library.saveToFile(filename);
-                break;
-            case 3:
-                /* Add a video game. */
-                library.addVideoGameToArray();
-                break;
-            case 4:
-                /* Remove a video game. */
-                library.removeVideoGameFromArray();
-                break;
-            case 5:
-                /* Display all video games. */
-                library.displayVideoGames();
-                break;
-            case 6:
-                /* Remove all video games and quit. */
-                quit = true;
-                break;
-            default:
-                /* User input error. */
-                cout << "That is not a valid choice.\n" << endl;
-                break;
+        cin >> userChoice;
+        switch (userChoice)
+        {
+        case 1:
+            /* Load video games from a file. */
+            cout << "\nWhat is the name of the file? (example.txt): ";
+            cin.ignore();
+            cin.getline(filename, sizeof(filename));
+            cout << endl;
+            library->loadVideoGamesFromFile(filename);
+            break;
+        case 2:
+            /* Save video games from a file. */
+            library->saveToFile(filename);
+            break;
+        case 3:
+            /* Add a video game. */
+            library->addVideoGameToArray();
+            break;
+        case 4:
+            /* Remove a video game. */
+            library->removeVideoGameFromArray();
+            break;
+        case 5:
+            /* Display all video games. */
+            library->displayVideoGames();
+            break;
+        case 6:
+            /* Remove all video games and quit. */
+            cout << endl;
+            quit = true;
+            break;
+        default:
+            /* User input error. */
+            cout << "That is not a valid choice.\n\n";
+            break;
         }
     }
-    cout << "\nGOODBYE!\n" << endl;
+
+    delete library;
     return 0;
 };
 
-void showMenu() {
+void showMenu()
+{
     cout << "What would you like to do?\n";
     cout << "\t1. Load video games from a file\n";
     cout << "\t2. Save video games to a file\n";
