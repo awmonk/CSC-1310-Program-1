@@ -144,8 +144,9 @@ public:
     {
         for (int i = 0; i < numGames; i++)
         {
-            cout << setw(48) << right;
-            cout << "--------Video Game " << i + 1 << "--------\n";
+            cout << "\n";
+            cout << setw(50) << right;
+            cout << "-------- Video Game " << i + 1 << " --------\n";
             videoGameArray[i]->printVideoGameDetails();
         }
     };
