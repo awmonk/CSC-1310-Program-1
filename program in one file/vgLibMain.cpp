@@ -20,7 +20,7 @@ public:
         cout << "Text destructor: Released memory for textArray.\n";
     };
 
-    void displayText() { cout << textArray << endl; };
+    void displayText() { cout << textArray << "\n"; };
     const char *getText() { return textArray; };
     int getTextLength() { return textLength; };
 
@@ -32,13 +32,8 @@ private:
 class videoGame
 {
 public:
-    videoGame(Text *title, Text *developer, Text *publisher, int year)
-    {
-        this->title = title;
-        this->developer = developer;
-        this->publisher = publisher;
-        this->year = year;
-    };
+    videoGame(Text *t, Text *d, Text *p, int y)
+        : title(t), developer(d), publisher(p), year(y){};
 
     ~videoGame()
     {
@@ -85,11 +80,9 @@ private:
 class videoGameLibrary
 {
 public:
-    videoGameLibrary(int maxGames)
+    videoGameLibrary(int maxGames) : maxGames(maxGames), numGames(0)
     {
         videoGameArray = new videoGame *[maxGames];
-        this->maxGames = maxGames;
-        numGames = 0;
     };
 
     ~videoGameLibrary()
@@ -111,7 +104,7 @@ public:
             char title[100], developer[100], publisher[100];
             int year;
 
-            cout << endl;
+            cout << "\n";
             cin.ignore();
 
             cout << "Enter VIDEO GAME Title: ";
@@ -155,7 +148,7 @@ public:
     {
         for (int i = 0; i < numGames; i++)
         {
-            cout << endl;
+            cout << "\n";
             cout << i + 1 << ": ";
             videoGameArray[i]->getVideoGameTitle();
         }
@@ -197,7 +190,7 @@ public:
         }
         infile.close();
 
-        cout << endl;
+        cout << "\n";
         cout << numGames << " video games were read from the file and ";
         cout << "added to your VideoGame library\n";
 
@@ -206,26 +199,27 @@ public:
 
     void removeVideoGameFromArray()
     {
-        int userChoice;
+        int choice;
+
         if (numGames >= 1)
         {
             cout << "\nChoose from the following video games to remove:";
             displayVideoGameTitles();
-            cout << endl;
+            cout << "\n";
 
             cout << "\nChoose a video game between 1 & " << numGames << ": ";
-            cin >> userChoice;
-            cout << endl;
+            cin >> choice;
+            cout << "\n";
 
-            if (userChoice >= 1 && userChoice <= numGames)
+            if (choice >= 1 && choice <= numGames)
             {
                 cout << "\nThe video game ";
-                videoGameArray[userChoice - 1]->getVideoGameTitle();
+                videoGameArray[choice - 1]->getVideoGameTitle();
                 cout << " has been successfully deleted.\n\n";
 
-                delete videoGameArray[userChoice - 1];
+                delete videoGameArray[choice - 1];
 
-                for (int i = userChoice - 1; i < numGames - 1; i++)
+                for (int i = choice - 1; i < numGames - 1; i++)
                     videoGameArray[i] = videoGameArray[i + 1];
 
                 numGames--;
@@ -243,7 +237,8 @@ public:
     void saveToFile(const char *filename)
     {
         char userFilename[100];
-        if (filename == nullptr)
+
+        if (!filename)
         {
             cout << "What do you want to name the file? (example.txt): ";
             cin.ignore();
@@ -263,8 +258,9 @@ public:
             videoGameArray[i]->printVideoGameDetailsToFile(outfile);
 
         outfile.close();
+
         cout << "All video games in your library have been printed to ";
-        cout << filename << endl;
+        cout << filename << "\n";
     };
 
     void resizeVideoGameArray()
@@ -294,8 +290,7 @@ void showMenu();
 
 int main()
 {
-    int maxGames, userChoice = -1;
-    bool quit = false;
+    int maxGames, choice = -1;
     char filename[100];
 
     cout << "How many video games can your library hold? ";
@@ -303,20 +298,19 @@ int main()
 
     videoGameLibrary *library = new videoGameLibrary(maxGames);
 
-    while (!quit)
+    while (choice != 6)
     {
-        cout << "\n";
         showMenu();
-        cin >> userChoice;
+        cin >> choice;
 
-        switch (userChoice)
+        switch (choice)
         {
         case 1:
             cout << "\nWhat is the name of the file? (example.txt): ";
             cin.ignore();
 
             cin.getline(filename, sizeof(filename));
-            cout << endl;
+            cout << "\n";
 
             library->loadVideoGamesFromFile(filename);
             break;
@@ -332,23 +326,21 @@ int main()
         case 5:
             library->displayVideoGames();
             break;
-        case 6:
-            cout << "\n";
-            quit = true;
-            break;
         default:
             cout << "That is not a valid choice.\n\n";
             break;
         }
     }
 
+    cout << "\n";
     delete library;
+
     return 0;
 };
 
 void showMenu()
 {
-    cout << "What would you like to do?\n\n";
+    cout << "\nWhat would you like to do?\n\n";
     cout << "\t1. Load video games from a file\n";
     cout << "\t2. Save video games to a file\n";
     cout << "\t3. Add a video game\n";

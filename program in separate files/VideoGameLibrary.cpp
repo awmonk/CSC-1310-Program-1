@@ -2,11 +2,9 @@
 #include "VideoGameLibrary.h"
 using namespace std;
 
-videoGameLibrary::videoGameLibrary(int maxGames)
+videoGameLibrary::videoGameLibrary(int maxGames) : maxGames(maxGames), numGames(0)
 {
     videoGameArray = new videoGame *[maxGames];
-    this->maxGames = maxGames;
-    numGames = 0;
 };
 
 videoGameLibrary::~videoGameLibrary()
@@ -124,6 +122,7 @@ void videoGameLibrary::loadVideoGamesFromFile(const char *filename)
 void videoGameLibrary::removeVideoGameFromArray()
 {
     int userChoice;
+
     if (numGames >= 1)
     {
         cout << "\nChoose from the following video games to remove:";
@@ -160,7 +159,8 @@ void videoGameLibrary::removeVideoGameFromArray()
 void videoGameLibrary::saveToFile(const char *filename)
 {
     char userFilename[100];
-    if (filename == nullptr)
+
+    if (!filename)
     {
         cout << "What do you want to name the file? (example.txt): ";
         cin.ignore();

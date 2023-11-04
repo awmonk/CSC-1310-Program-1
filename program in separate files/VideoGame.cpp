@@ -1,13 +1,8 @@
 #include "VideoGame.h"
 using namespace std;
 
-videoGame::videoGame(Text *title, Text *developer, Text *publisher, int year)
-{
-    this->title = title;
-    this->developer = developer;
-    this->publisher = publisher;
-    this->year = year;
-};
+videoGame::videoGame(Text *t, Text *d, Text *p, int y)
+    : title(t), developer(d), publisher(p), year(y){};
 
 videoGame::~videoGame()
 {
