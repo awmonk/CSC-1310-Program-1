@@ -36,18 +36,23 @@ int main()
 
             library->loadVideoGamesFromFile(filename);
             break;
+
         case 2:
             library->saveToFile(filename);
             break;
+
         case 3:
             library->addVideoGameToArray();
             break;
+
         case 4:
             library->removeVideoGameFromArray();
             break;
+
         case 5:
             library->displayVideoGames();
             break;
+
         default:
             cout << "That is not a valid choice.\n\n";
             break;
