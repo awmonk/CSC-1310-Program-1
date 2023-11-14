@@ -45,29 +45,29 @@ public:
 
     void printVideoGameDetails()
     {
-        cout << setw(30) << right << "Game Title: ";
-        cout << setw(30) << left << title->getText();
-        cout << "\n";
+        cout << setw(30) << right << "Game Title: "
+             << setw(30) << left << title->getText()
+             << "\n";
 
-        cout << setw(30) << right << "Game Developer: ";
-        cout << setw(30) << left << developer->getText();
-        cout << "\n";
+        cout << setw(30) << right << "Game Developer: "
+             << setw(30) << left << developer->getText()
+             << "\n";
 
-        cout << setw(30) << right << "Game Publisher: ";
-        cout << setw(30) << left << publisher->getText();
-        cout << "\n";
+        cout << setw(30) << right << "Game Publisher: "
+             << setw(30) << left << publisher->getText()
+             << "\n";
 
-        cout << setw(30) << right << "Game Year: ";
-        cout << setw(30) << left << year;
-        cout << "\n";
+        cout << setw(30) << right << "Game Year: "
+             << setw(30) << left << year
+             << "\n";
     };
 
     void printVideoGameDetailsToFile(ofstream &outfile)
     {
-        outfile << title->getText() << "\n";
-        outfile << developer->getText() << "\n";
-        outfile << publisher->getText() << "\n";
-        outfile << year << "\n";
+        outfile << title->getText() << "\n"
+                << developer->getText() << "\n"
+                << publisher->getText() << "\n"
+                << year << "\n";
     };
 
     void getVideoGameTitle() { cout << title->getText(); };
@@ -92,9 +92,9 @@ public:
 
         delete[] videoGameArray;
 
-        cout << "VideoGameLibrary destructor: Released memory for ";
-        cout << "each game in the video game array and the array itself.";
-        cout << "\n\nGOODBYE!\n\n";
+        cout << "VideoGameLibrary destructor: Released memory for "
+             << "each game in the video game array and the array itself."
+             << "\n\nGOODBYE!\n\n";
     };
 
     void addVideoGameToArray()
@@ -137,9 +137,9 @@ public:
     {
         for (int i = 0; i < numGames; i++)
         {
-            cout << "\n";
-            cout << setw(50) << right;
-            cout << "-------- Video Game " << i + 1 << " --------\n";
+            cout << "\n"
+                 << setw(50) << right
+                 << "-------- Video Game " << i + 1 << " --------\n";
             videoGameArray[i]->printVideoGameDetails();
         }
     };
@@ -148,8 +148,8 @@ public:
     {
         for (int i = 0; i < numGames; i++)
         {
-            cout << "\n";
-            cout << i + 1 << ": ";
+            cout << "\n"
+                 << i + 1 << ": ";
             videoGameArray[i]->getVideoGameTitle();
         }
     };
@@ -190,9 +190,9 @@ public:
         }
         infile.close();
 
-        cout << "\n";
-        cout << numGames << " video games were read from the file and ";
-        cout << "added to your VideoGame library\n";
+        cout << "\n"
+             << numGames << " video games were read from the file and "
+             << "added to your VideoGame library\n";
 
         return;
     };
@@ -229,8 +229,8 @@ public:
         }
         else
         {
-            cout << "There must be at least one game in the library ";
-            cout << "to remove a game.\n";
+            cout << "There must be at least one game in the library "
+                 << "to remove a game.\n";
         }
     };
 
@@ -259,8 +259,8 @@ public:
 
         outfile.close();
 
-        cout << "All video games in your library have been printed to ";
-        cout << filename << "\n";
+        cout << "All video games in your library have been printed to "
+             << filename << "\n";
     };
 
     void resizeVideoGameArray()
@@ -286,14 +286,25 @@ private:
     int maxGames, numGames;
 };
 
-void showMenu();
+void showMenu()
+{
+    cout << "\nWhat would you like to do?\n\n"
+         << "\t1. Load video games from a file\n"
+         << "\t2. Save video games to a file\n"
+         << "\t3. Add a video game\n"
+         << "\t4. Remove a video game\n"
+         << "\t5. Display all video games\n"
+         << "\t6. Remove ALL video games from "
+         << "this library and END PROGRAM\n\n"
+         << "CHOOSE 1-6: ";
+};
 
 int main()
 {
     int maxGames, choice = -1;
     char filename[100];
 
-    cout << "How many video games can your library hold? ";
+    cout << "\nHow many video games can your library hold? ";
     cin >> maxGames;
 
     videoGameLibrary *library = new videoGameLibrary(maxGames);
@@ -331,6 +342,9 @@ int main()
             library->displayVideoGames();
             break;
 
+        case 6:
+            break;
+
         default:
             cout << "That is not a valid choice.\n\n";
             break;
@@ -341,17 +355,4 @@ int main()
     delete library;
 
     return 0;
-};
-
-void showMenu()
-{
-    cout << "\nWhat would you like to do?\n\n";
-    cout << "\t1. Load video games from a file\n";
-    cout << "\t2. Save video games to a file\n";
-    cout << "\t3. Add a video game\n";
-    cout << "\t4. Remove a video game\n";
-    cout << "\t5. Display all video games\n";
-    cout << "\t6. Remove ALL video games from ";
-    cout << "this library and END PROGRAM\n\n";
-    cout << "CHOOSE 1-6: ";
 };

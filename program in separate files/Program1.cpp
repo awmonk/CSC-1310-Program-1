@@ -8,14 +8,25 @@
 #include "VideoGameLibrary.h"
 using namespace std;
 
-void showMenu();
+void showMenu()
+{
+    cout << "\nWhat would you like to do?\n\n";
+    cout << "\t1. Load video games from a file\n";
+    cout << "\t2. Save video games to a file\n";
+    cout << "\t3. Add a video game\n";
+    cout << "\t4. Remove a video game\n";
+    cout << "\t5. Display all video games\n";
+    cout << "\t6. Remove ALL video games from ";
+    cout << "this library and END PROGRAM\n\n";
+    cout << "CHOOSE 1-6: ";
+};
 
 int main()
 {
     int maxGames, userChoice = -1;
     char filename[100];
 
-    cout << "How many video games can your library hold? ";
+    cout << "\nHow many video games can your library hold? ";
     cin >> maxGames;
 
     videoGameLibrary *library = new videoGameLibrary(maxGames);
@@ -53,6 +64,9 @@ int main()
             library->displayVideoGames();
             break;
 
+        case 6:
+            break;
+
         default:
             cout << "That is not a valid choice.\n\n";
             break;
@@ -63,17 +77,4 @@ int main()
     delete library;
 
     return 0;
-};
-
-void showMenu()
-{
-    cout << "\nWhat would you like to do?\n\n";
-    cout << "\t1. Load video games from a file\n";
-    cout << "\t2. Save video games to a file\n";
-    cout << "\t3. Add a video game\n";
-    cout << "\t4. Remove a video game\n";
-    cout << "\t5. Display all video games\n";
-    cout << "\t6. Remove ALL video games from ";
-    cout << "this library and END PROGRAM\n\n";
-    cout << "CHOOSE 1-6: ";
 };
